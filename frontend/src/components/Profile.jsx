@@ -6,6 +6,8 @@ import { useSelector } from 'react-redux';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { AtSign, Heart, MessageCircle } from 'lucide-react';
+import axios from 'axios';
+import { toast } from 'sonner';
 
 const Profile = () => {
   const params = useParams();
@@ -21,6 +23,40 @@ const Profile = () => {
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   }
+  const followUnfollowHandler = async () => {
+    try {
+        const action = isFollowing ? 'unfollow' : 'follow';
+        // Use POST instead of GET
+        const res = await axios.post(`http://localhost:3000/api/v1/user/followorunfollow/${userProfile._id}`, { action }, { withCredentials: true });
+
+        console.log(res.data);
+        
+        if (res.data.success) {
+            // Update the following state
+            setIsFollowing(!isFollowing); // Toggle the following state
+
+            // Update followers count in userProfile directly in state
+            const updatedUserProfile = {
+                ...userProfile,
+                followers: isFollowing 
+                    ? userProfile.followers.filter(id => id !== user._id) 
+                    : [...userProfile.followers, user._id]
+            };
+
+            // Update the userProfile in local state (if applicable)
+            setUserProfile(updatedUserProfile); // Assuming you have a local state for userProfile
+
+            toast.success(res.data.message); // Notify the user
+        } else {
+            // Handle the case when success is false
+            toast.error(res.data.message || "An error occurred.");
+        }
+    } catch (error) {
+        console.error(error);
+        toast.error("An error occurred while trying to follow/unfollow.");
+    }
+};
+
 
   const displayedPost = activeTab === 'posts' ? userProfile?.posts : userProfile?.bookmarks;
 
@@ -38,24 +74,25 @@ const Profile = () => {
             <div className='flex flex-col gap-5'>
               <div className='flex items-center gap-2'>
                 <span>{userProfile?.username}</span>
-                {
-                  isLoggedInUserProfile ? (
-                    <>
-                      <Link to="/account/edit"><Button variant='secondary' className='hover:bg-gray-200 h-8'>Edit profile</Button></Link>
-                      <Button variant='secondary' className='hover:bg-gray-200 h-8'>View archive</Button>
-                      <Button variant='secondary' className='hover:bg-gray-200 h-8'>Ad tools</Button>
-                    </>
-                  ) : (
-                    isFollowing ? (
-                      <>
-                        <Button variant='secondary' className='h-8'>Unfollow</Button>
-                        <Button variant='secondary' className='h-8'>Message</Button>
-                      </>
-                    ) : (
-                      <Button className='bg-[#0095F6] hover:bg-[#3192d2] h-8'>Follow</Button>
-                    )
-                  )
-                }
+                {isLoggedInUserProfile ? (
+    <>
+        <Link to="/account/edit"><Button variant='secondary' className='hover:bg-gray-200 h-8'>Edit profile</Button></Link>
+        <Button variant='secondary' className='hover:bg-gray-200 h-8'>View archive</Button>
+        <Button variant='secondary' className='hover:bg-gray-200 h-8'>Ad tools</Button>
+    </>
+) : (
+    <>
+        <Button 
+            variant='secondary' 
+            className={`h-8 ${isFollowing ? 'bg-red-500' : 'bg-[#0095F6] hover:bg-[#3192d2]'}`} 
+            onClick={followUnfollowHandler}
+        >
+            {isFollowing ? 'Unfollow' : 'Follow'}
+        </Button>
+        {!isFollowing && <Button variant='secondary' className='h-8'>Message</Button>}
+    </>
+)}
+
               </div>
               <div className='flex items-center gap-4'>
                 <p><span className='font-semibold'>{userProfile?.posts.length} </span>posts</p>
@@ -65,9 +102,6 @@ const Profile = () => {
               <div className='flex flex-col gap-1'>
                 <span className='font-semibold'>{userProfile?.bio || 'bio here...'}</span>
                 <Badge className='w-fit' variant='secondary'><AtSign /> <span className='pl-1'>{userProfile?.username}</span> </Badge>
-                <span>🤯Learn code with patel mernstack style</span>
-                <span>🤯Turing code into fun</span>
-                <span>🤯DM for collaboration</span>
               </div>
             </div>
           </section>

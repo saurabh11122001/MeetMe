@@ -21,7 +21,7 @@ const LeftSidebar = () => {
 
     const logoutHandler = async () => {
         try {
-            const res = await axios.get('https://instaclone-g9h5.onrender.com/api/v1/user/logout', { withCredentials: true });
+            const res = await axios.get('http://localhost:3000/api/v1/user/logout', { withCredentials: true });
             if (res.data.success) {
                 dispatch(setAuthUser(null));
                 dispatch(setSelectedPost(null));
@@ -67,9 +67,9 @@ const LeftSidebar = () => {
         { icon: <LogOut />, text: "Logout" },
     ]
     return (
-        <div className='fixed top-0 z-10 left-0 px-4 border-r border-gray-300 w-[16%] h-screen'>
+        <div className='fixed top-0 z-10 left-0 px-4 border-r border-gray-300 w-[16%] h-screen  font-semibold'>
             <div className='flex flex-col'>
-                <h1 className='my-8 pl-3 font-bold text-xl'>LOGO</h1>
+                <h1 className='my-8 pl-3 font-bold text-xl'>MeetMe</h1>
                 <div>
                     {
                         sidebarItems.map((item, index) => {

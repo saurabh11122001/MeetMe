@@ -25,7 +25,7 @@ const Signup = () => {
         e.preventDefault();
         try {
             setLoading(true);
-            const res = await axios.post('https://instaclone-g9h5.onrender.com/api/v1/user/register', input, {
+            const res = await axios.post('http://localhost:3000/api/v1/user/register', input, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -42,11 +42,13 @@ const Signup = () => {
             }
         } catch (error) {
             console.log(error);
-            toast.error(error.response.data.message);
+            const errorMessage = error.response ? error.response.data.message : "Network error. Please try again.";
+            toast.error(errorMessage);
         } finally {
             setLoading(false);
         }
     }
+    
 
     useEffect(()=>{
         if(user){
@@ -57,7 +59,7 @@ const Signup = () => {
         <div className='flex items-center w-screen h-screen justify-center'>
             <form onSubmit={signupHandler} className='shadow-lg flex flex-col gap-5 p-8'>
                 <div className='my-4'>
-                    <h1 className='text-center font-bold text-xl'>LOGO</h1>
+                    <h1 className='text-center font-bold text-xl'>MeetMe</h1>
                     <p className='text-sm text-center'>Signup to see photos & videos from your friends</p>
                 </div>
                 <div>

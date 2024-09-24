@@ -58,7 +58,7 @@ export const login = async (req, res) => {
             });
         };
 
-        const token = await jwt.sign({ userId: user._id }, process.env.SECRET_KEY, { expiresIn: '1d' });
+        const token = await jwt.sign({ userId: user._id }, "asasdhasdasd", { expiresIn: '1d' });
 
         // populate each post if in the posts array
         const populatedPosts = await Promise.all(
@@ -166,8 +166,8 @@ export const getSuggestedUsers = async (req, res) => {
 };
 export const followOrUnfollow = async (req, res) => {
     try {
-        const followKrneWala = req.id; // patel
-        const jiskoFollowKrunga = req.params.id; // shivani
+        const followKrneWala = req.id; 
+        const jiskoFollowKrunga = req.params.id; 
         if (followKrneWala === jiskoFollowKrunga) {
             return res.status(400).json({
                 message: 'You cannot follow/unfollow yourself',
