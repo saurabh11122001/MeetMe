@@ -107,7 +107,7 @@ const Post = ({ post }) => {
         }
     }
     return (
-        <div className='my-8 bg-white p-2 rounded-md w-full max-w-md mx-auto'>
+        <div className='my-8 bg-white p-2 rounded-md w-full max-w-md mx-auto bg-zinc-700'>
             <div className='flex items-center justify-between'>
                 <div className='flex items-center gap-2'>
                     <Avatar>
@@ -158,7 +158,10 @@ const Post = ({ post }) => {
             <span className='font-medium block mb-2'>{postLike} likes</span>
             <p>
                 <span className='font-medium mr-2'>{post.author?.username}</span>
+                <span className='text-gray-300'>
                 {post.caption}
+
+                </span>
             </p>
             {
                 comment.length > 0 && (
@@ -175,7 +178,7 @@ const Post = ({ post }) => {
                     placeholder='Add a comment...'
                     value={text}
                     onChange={changeEventHandler}
-                    className='outline-none text-sm w-full'
+                    className='outline-none text-sm w-full bg-zinc-600 h-10 px-2'
                 />
                 {
                     text && <span onClick={commentHandler} className='text-[#3BADF8] cursor-pointer'>Post</span>

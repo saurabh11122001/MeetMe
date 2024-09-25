@@ -9,7 +9,7 @@ const Home = () => {
     useGetAllPost();
     useGetSuggestedUsers();
     return (
-        <div className='flex'>
+        <div className='flex bg-zinc-800'>
             <div className='flex-grow'>
                 <Feed />
                 <Outlet />

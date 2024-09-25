@@ -67,14 +67,14 @@ const LeftSidebar = () => {
         { icon: <LogOut />, text: "Logout" },
     ]
     return (
-        <div className='fixed top-0 z-10 left-0 px-4 border-r border-gray-300 w-[16%] h-screen  font-semibold'>
-            <div className='flex flex-col'>
+        <div className='fixed top-0 z-10 left-0 px-4 text-black border-r border-gray-300 text-white w-[16%] h-screen  font-semibold'>
+            <div className='flex flex-col bg-zinc-800'>
                 <h1 className='my-8 pl-3 font-bold text-xl'>MeetMe</h1>
                 <div>
                     {
                         sidebarItems.map((item, index) => {
                             return (
-                                <div onClick={() => sidebarHandler(item.text)} key={index} className='flex items-center gap-3 relative hover:bg-gray-100 cursor-pointer rounded-lg p-3 my-3'>
+                                <div onClick={() => sidebarHandler(item.text)} key={index} className='hover:bg-black hover:text-white flex items-center gap-3 relative  cursor-pointer rounded-lg p-3 my-3'>
                                     {item.icon}
                                     <span>{item.text}</span>
                                     {

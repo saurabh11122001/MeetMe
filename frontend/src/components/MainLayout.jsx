@@ -4,7 +4,7 @@ import LeftSidebar from './LeftSidebar'
 
 const MainLayout = () => {
   return (
-    <div>
+    <div className='bg-zinc-800 text-white'>
          <LeftSidebar/>
         <div>
             <Outlet/>

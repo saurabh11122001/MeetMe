@@ -56,8 +56,8 @@ const Signup = () => {
         }
     },[])
     return (
-        <div className='flex items-center w-screen h-screen justify-center'>
-            <form onSubmit={signupHandler} className='shadow-lg flex flex-col gap-5 p-8'>
+        <div className='flex items-center w-screen h-screen justify-center bg-zinc-800 text-white'>
+            <form onSubmit={signupHandler} className='shadow-lg flex flex-col gap-5 p-8 border border-gray-500 rounded-lg'>
                 <div className='my-4'>
                     <h1 className='text-center font-bold text-xl'>MeetMe</h1>
                     <p className='text-sm text-center'>Signup to see photos & videos from your friends</p>
@@ -69,7 +69,7 @@ const Signup = () => {
                         name="username"
                         value={input.username}
                         onChange={changeEventHandler}
-                        className="focus-visible:ring-transparent my-2"
+                        className="focus-visible:ring-transparent my-2 text-black font-semibold"
                     />
                 </div>
                 <div>
@@ -79,7 +79,7 @@ const Signup = () => {
                         name="email"
                         value={input.email}
                         onChange={changeEventHandler}
-                        className="focus-visible:ring-transparent my-2"
+                        className="focus-visible:ring-transparent my-2 text-black font-semibold"
                     />
                 </div>
                 <div>
@@ -89,7 +89,7 @@ const Signup = () => {
                         name="password"
                         value={input.password}
                         onChange={changeEventHandler}
-                        className="focus-visible:ring-transparent my-2"
+                        className="focus-visible:ring-transparent my-2 text-black font-semibold"
                     />
                 </div>
                 {

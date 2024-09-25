@@ -84,7 +84,9 @@ function App() {
 
   return (
     <>
+      <div className='bg-zinc-800'>
       <RouterProvider router={browserRouter} />
+      </div>
     </>
   )
 }
